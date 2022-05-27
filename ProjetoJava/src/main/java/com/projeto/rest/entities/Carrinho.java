@@ -17,7 +17,9 @@ public class Carrinho {
 	private int quantidade;
 	@ManyToOne
 	private Produto produto;
+	@ManyToOne
 	private Venda venda;
+	
 	
 	
 	public Carrinho(int id, int quantidade, Produto produto, Venda venda) {
@@ -27,8 +29,7 @@ public class Carrinho {
 		this.produto = produto;
 		this.venda = venda;
 	}
-	
-	
+
 	public Carrinho() {
 	
 	}
@@ -51,12 +52,17 @@ public class Carrinho {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+
+
 	public Venda getVenda() {
 		return venda;
 	}
+
+
 	public void setVenda(Venda venda) {
 		this.venda = venda;
 	}
+	
 }
 
 	
