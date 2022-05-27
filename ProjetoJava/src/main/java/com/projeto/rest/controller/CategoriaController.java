@@ -10,27 +10,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projeto.rest.entities.Categoria;
-import com.projeto.rest.repository.CategoriaRepository;
+import com.projeto.rest.service.CategoriaService;
 
 @RestController
 @RequestMapping("/categoria")
 public class CategoriaController {
 	
 	@Autowired
-	private CategoriaRepository repository;
+	CategoriaService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Categoria>>GetAll(){
-		return ResponseEntity.ok(repository.findAll());
+	public ResponseEntity<List<Categoria>>listarTodas(){
+		return ResponseEntity.ok(service.listarTodas());
 	}
 	
 	@GetMapping("/nome")
-	public ResponseEntity<List<Categoria>> findByNome(@RequestParam("nome") String nome){
-		return ResponseEntity.ok(repository.findAllByNome(nome));
+	public ResponseEntity<List<Categoria>> buscarNome(@RequestParam("nome") String nome){
+		return ResponseEntity.ok(service.buscarNome(nome));
 	}	
-	
-	
-
 }
 
 	

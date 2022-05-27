@@ -1,6 +1,5 @@
-/*package com.projeto.rest.service;
+package com.projeto.rest.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +16,17 @@ public class CategoriaService {
 	@Autowired
 	CategoriaRepository repo;
 	
-	public List<Categoria> listarTodos(){
-		java.util.List<Categoria> categoria = repo.findAll();
-		
-		List<Categoria> Categoria = new ArrayList<>();
+	public List<Categoria> listarTodas(){
+		List<Categoria> categoria = repo.findAll();
+		 return categoria;
 				
 	}
+
+	public List<Categoria> buscarNome (String nome) {
+	List<Categoria> categoria = repo.findAllByNome(nome);
+		return categoria;
+	}
+	
 		
 
 }
-*/

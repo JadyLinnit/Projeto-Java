@@ -1,5 +1,15 @@
 package com.projeto.rest.repository;
 
-public class ProdutoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-}
+import com.projeto.rest.entities.Produto;
+import com.projeto.rest.entities.Usuario;
+
+
+	@Repository
+	public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
+
+		
+	}
+
