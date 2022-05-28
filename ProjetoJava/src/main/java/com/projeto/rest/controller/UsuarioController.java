@@ -1,6 +1,7 @@
 package com.projeto.rest.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projeto.rest.dto.UsuarioDTO;
 import com.projeto.rest.entities.Usuario;
+import com.projeto.rest.entities.UsuarioLogin;
 import com.projeto.rest.service.UsuarioService;
 
 @RestController
@@ -23,7 +25,13 @@ import com.projeto.rest.service.UsuarioService;
 public class UsuarioController {
 
 	@Autowired
-	UsuarioService service;
+	UsuarioService service;	
+	
+	@PostMapping("/logar")
+	public ResponseEntity<UsuarioLogin> Autentication(@RequestBody Optional<UsuarioLogin> user) {
+		return service.logarUsuario(user).map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+	}
 	
 	@GetMapping
 	public ResponseEntity<List<UsuarioDTO>> listaUsuarios(){
