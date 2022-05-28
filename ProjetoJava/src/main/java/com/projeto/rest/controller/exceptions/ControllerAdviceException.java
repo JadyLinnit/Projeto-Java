@@ -10,15 +10,16 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.projeto.rest.service.execao.ExecaoById;
+import com.projeto.rest.service.execao.UsuarioOuSenhaInvalidaExeption;
 
 @ControllerAdvice
 public class ControllerAdviceException {
 	
-	@ExceptionHandler(ExecaoById.class)
+	@ExceptionHandler({ExecaoById.class,UsuarioOuSenhaInvalidaExeption.class})
 	public ResponseEntity<Problema> erros( ExecaoById pro , HttpServletRequest http){
-		
-		Problema p = new Problema((long) HttpStatus.NOT_FOUND.value(),Instant.now(),pro.getMessage(),http.getRequestURI());
-		          return ResponseEntity.status(HttpStatus.NOT_FOUND).body(p);
+		Problema problema = new Problema((long) HttpStatus.NOT_FOUND.value(),
+				Instant.now(),pro.getMessage(),http.getRequestURI());
+		          return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problema);
 	}
 
 }

@@ -31,12 +31,7 @@ public class ProdutoController {
 	
 	@GetMapping("/{idproduto}")
 	public ResponseEntity<Produto> pegarProduto(@PathVariable("idproduto") int idproduto){
-		try {
-			Produto produto = service.pegarProduto(idproduto);
-			return ResponseEntity.status(HttpStatus.OK).body(produto);
-		}catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
+		return ResponseEntity.status(HttpStatus.OK).body(service.pegarProduto(idproduto));
 	}
 	
 	@PostMapping
@@ -47,23 +42,15 @@ public class ProdutoController {
 	
 	@PutMapping("/{idproduto}")
 	public ResponseEntity<Produto> alterar(@PathVariable("idproduto") int idproduto, @RequestBody Produto produto){
-		try {
-			return ResponseEntity.status(HttpStatus.OK).body(service.alterar(idproduto, produto));
-		}catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
+		return ResponseEntity.status(HttpStatus.OK).body(service.alterar(idproduto, produto));
+		
 	}
 	
 	@DeleteMapping("/{idproduto}")
 	public ResponseEntity<Produto> excluir(@PathVariable("idproduto") int idproduto){
-		try {
-			service.excluir(idproduto);
+		     service.excluir(idproduto);
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-		}catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-	}
-	
+}
 	
 	
 

@@ -13,7 +13,7 @@ public class Problema implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm", timezone = "MGT")
 	private Instant tempo;
 	
-	private String  mensagem;
+	private String mensagem;
 	
 	private String path;
 	
