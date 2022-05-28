@@ -47,7 +47,7 @@ public class ProdutoService {
 		return (prod);
 		}
 		catch (Exception e) {
-			throw new  ExecaoById("Erro ao tentar alterar produto de ID: "+ idproduto );
+			throw new  ExecaoById("Erro ao alterar o produto de  ID: "+ idproduto + " PRODUTO NÃO EXISTENTE ");
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class ProdutoService {
 		repo.deleteById(idproduto);
 		}
 		catch (Exception e) {
-			throw new ExecaoById("Erro ao tentar exclir produto de ID: "+ idproduto );
+			throw new ExecaoById("Erro ao tentar excluir produto de ID: "+ idproduto );
 		
 		}
 	}
