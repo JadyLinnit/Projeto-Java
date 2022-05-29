@@ -1,7 +1,6 @@
 package com.projeto.rest.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,9 +27,10 @@ public class UsuarioController {
 	UsuarioService service;	
 	
 	@PostMapping("/logar")
-	public ResponseEntity<UsuarioLogin> Autentication(@RequestBody Optional<UsuarioLogin> user) {
-		return service.logarUsuario(user).map(resp -> ResponseEntity.ok(resp))
-				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+	public ResponseEntity<UsuarioLogin> Autentication(@RequestBody UsuarioLogin user) {
+		UsuarioLogin obj = service.logarUsuario(user);
+		return ResponseEntity.ok(obj); 
+				
 	}
 	
 	@GetMapping
@@ -40,13 +40,9 @@ public class UsuarioController {
 	
 	@GetMapping("/{idusuario}")
 	public ResponseEntity<UsuarioDTO> pegarUsuario(@PathVariable("idusuario") int idusuario) {
-		try {
-			UsuarioDTO userDTO = service.pegarUsuario(idusuario);
-			return ResponseEntity.status(HttpStatus.OK).body(userDTO);
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-	}   
+		    UsuarioDTO userDTO = service.pegarUsuario(idusuario);
+			return ResponseEntity.ok().body(userDTO);
+	}
 	
 	@PostMapping
 	   public ResponseEntity<UsuarioDTO> salvar(@RequestBody Usuario usuario){
@@ -56,23 +52,17 @@ public class UsuarioController {
 	
 	@PutMapping("/{idusuario}")
 	public ResponseEntity<UsuarioDTO> alterar(@PathVariable("idusuario") int idusuario, @RequestBody Usuario usuario){
-		try {
-		  return ResponseEntity.status(HttpStatus.OK).body(service.alterar(idusuario, usuario));	
-		}
-		catch(Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
+	      return ResponseEntity.status(HttpStatus.OK).body(service.alterar(idusuario, usuario));	
+		
+		
 	}
 	
 	@DeleteMapping("/{idusuario}")
 	public ResponseEntity<UsuarioDTO> excluir(@PathVariable("idusuario") int idusuario){
-		try {
-			service.excluir(idusuario);
+		           service.excluir(idusuario);
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-		}
-		catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}		
+		
+	
 	}
 	
 	

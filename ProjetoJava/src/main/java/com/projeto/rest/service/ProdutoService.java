@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.projeto.rest.entities.Produto;
 import com.projeto.rest.repository.ProdutoRepository;
+import com.projeto.rest.service.execao.ExecaoById;
 
 @Component
 @Service
@@ -17,7 +18,6 @@ public class ProdutoService {
 	
 	public List<Produto> listarProdutos(){
 		List<Produto> produto = repo.findAll();
-		
 		return produto;		
 	}
 	
@@ -25,11 +25,18 @@ public class ProdutoService {
 		return repo.save(produto);
 	}
 	
+	
 	public Produto pegarProduto(int idproduto) {
+		try {
 		return repo.findById(idproduto).get();
+		}
+		catch (Exception e) {
+			throw new ExecaoById("Erro ao tentar resgatar produto de ID: "+ idproduto );
+		}
 	}
 	
 	public Produto alterar (int idproduto, Produto produto) {
+		try {
 		Produto prod = repo.findById(idproduto).get();
 		prod.setDescricao(produto.getDescricao());
 		prod.setEstoque(produto.getEstoque());
@@ -38,9 +45,22 @@ public class ProdutoService {
 		prod.setPreco(produto.getPreco());
 		prod = repo.save(prod);
 		return (prod);
+		}
+		catch (Exception e) {
+			throw new  ExecaoById("Erro ao alterar o produto de  ID: "+ idproduto + " PRODUTO NÃO EXISTENTE ");
+		}
 	}
 	
 	public void excluir(int idproduto) {
+		try {
 		repo.deleteById(idproduto);
+		}
+		catch (Exception e) {
+			throw new ExecaoById("Erro ao tentar excluir produto de ID: "+ idproduto );
+		
+		}
 	}
+	
+	
+	
 }
