@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.projeto.rest.entities.Produto;
 import com.projeto.rest.repository.ProdutoRepository;
-import com.projeto.rest.service.execao.ExecaoById;
+import com.projeto.rest.service.excecao.ExcecaoById;
 
 @Component
 @Service
@@ -31,7 +31,7 @@ public class ProdutoService {
 		return repo.findById(idproduto).get();
 		}
 		catch (Exception e) {
-			throw new ExecaoById("Erro ao tentar resgatar produto de ID: "+ idproduto );
+			throw new ExcecaoById("Erro ao tentar resgatar produto de ID: "+ idproduto );
 		}
 	}
 	
@@ -47,7 +47,7 @@ public class ProdutoService {
 		return (prod);
 		}
 		catch (Exception e) {
-			throw new  ExecaoById("Erro ao alterar o produto de  ID: "+ idproduto + " PRODUTO NÃO EXISTENTE ");
+			throw new  ExcecaoById("Erro ao alterar o produto de  ID: "+ idproduto + " PRODUTO NÃO EXISTENTE ");
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class ProdutoService {
 		repo.deleteById(idproduto);
 		}
 		catch (Exception e) {
-			throw new ExecaoById("Erro ao tentar excluir produto de ID: "+ idproduto );
+			throw new ExcecaoById("Erro ao tentar excluir produto de ID: "+ idproduto );
 		
 		}
 	}

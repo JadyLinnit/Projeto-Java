@@ -14,12 +14,13 @@ import com.projeto.rest.dto.UsuarioDTO;
 import com.projeto.rest.entities.Usuario;
 import com.projeto.rest.entities.UsuarioLogin;
 import com.projeto.rest.repository.UsuarioRepository;
-import com.projeto.rest.service.execao.ExecaoById;
-import com.projeto.rest.service.execao.UsuarioOuSenhaInvalidaExeption;
+import com.projeto.rest.service.excecao.ExcecaoById;
+import com.projeto.rest.service.excecao.UsuarioOuSenhaInvalidaException;
 
 @Component
 @Service
 public class UsuarioService {
+	
 	@Autowired
 	UsuarioRepository repo;
 
@@ -35,8 +36,7 @@ public class UsuarioService {
 		return usuariosDTO;
 	}
 
-	public UsuarioDTO salvar(Usuario usuario) {
-		
+	public UsuarioDTO salvar(Usuario usuario) {		
 		Usuario user = repo.save(usuario);
 		return new UsuarioDTO(user);
 		
@@ -44,7 +44,7 @@ public class UsuarioService {
 
 	public UsuarioDTO pegarUsuario(int idusuario) {
 		Usuario user = repo.findById(idusuario)
-				.orElseThrow(() -> new ExecaoById("Erro ao tentar resgatar Usuário de ID: " + idusuario));
+				.orElseThrow(() -> new ExcecaoById("Erro ao tentar resgatar Usuário de ID: " + idusuario));
 		return new UsuarioDTO(user);
 	}
 
@@ -68,7 +68,7 @@ public class UsuarioService {
 		return new UsuarioDTO(user);
 		} catch (Exception e) {
 			
-			throw new ExecaoById("Erro ao inserir Usuário de ID: " + idusuario);
+			throw new ExcecaoById("Erro ao inserir Usuário de ID: " + idusuario);
 		}
 	}
 
@@ -77,31 +77,42 @@ public class UsuarioService {
 		repo.deleteById(idusuario);
 		}
 		catch (Exception e) {
-			throw new ExecaoById("Erro ao deletar Usuário de ID: " + idusuario );
+			throw new ExcecaoById("Erro ao deletar Usuário de ID: " + idusuario );
 		}
 	}
 
-	public UsuarioLogin logarUsuario(UsuarioLogin usuarioLogin) {
-		
+	public UsuarioLogin logarUsuario(UsuarioLogin usuarioLogin)  {
+					
 		try {
-		Optional<Usuario> usuario = repo.findByEmail(usuarioLogin.getEmail());
+			Optional<Usuario> usuario = repo.findByEmail(usuarioLogin.getEmail());
 
-	//	if (usuario.isPresent()) {
-			usuarioLogin.setToken(generatorBasicToken(usuarioLogin.getEmail(), usuarioLogin.getSenha()));
-			usuarioLogin.setId(usuario.get().getId());
-			usuarioLogin.setNome(usuario.get().getNome());
-			usuarioLogin.setEmail(usuario.get().getEmail());
-			usuarioLogin.setSenha(usuario.get().getSenha());
-			usuarioLogin.setCpf(usuario.get().getCpf());
-			usuarioLogin.setPerfil(usuario.get().getPerfil());
-			return usuarioLogin;
-		//}
+		//if (usuario.isPresent()) {
+				usuarioLogin.setToken(generatorBasicToken(usuarioLogin.getEmail(), usuarioLogin.getSenha()));
+				usuarioLogin.setId(usuario.get().getId());
+				usuarioLogin.setNome(usuario.get().getNome());
+				usuarioLogin.setEmail(usuario.get().getEmail());
+				usuarioLogin.setSenha(usuario.get().getSenha());
+				usuarioLogin.setCpf(usuario.get().getCpf());
+				usuarioLogin.setPerfil(usuario.get().getPerfil());
+				return usuarioLogin;
+			//}
+			}
+			catch (Exception e) {
+				throw new UsuarioOuSenhaInvalidaException( "Usuário ou senha inválidos!");
+				
+			}
 		}
-		catch (Exception e) {
-			throw new UsuarioOuSenhaInvalidaExeption( "Usuário ou senha inválidos!");
-			
-		}
-	}
+	
+	/*private String criptografarSenha(String senha) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String senhaEncoder = encoder.encode(senha);
+		return senhaEncoder;
+	}*/
+	
+	/*private boolean compararSenhas(String senhaDigitada, String senhaBanco) {
+		BCryptPasswordEncoder encoder= new BCryptPasswordEncoder();
+		return encoder.matches(senhaDigitada, senhaBanco);
+	}*/
 
 	private String generatorBasicToken(String email, String password) {
 		String structure = email + ":" + password;
