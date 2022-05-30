@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,46 +25,43 @@ import com.projeto.rest.service.UsuarioService;
 public class UsuarioController {
 
 	@Autowired
-	UsuarioService service;	
-	
+	UsuarioService service;
+
 	@PostMapping("/logar")
 	public ResponseEntity<UsuarioLogin> Autentication(@RequestBody UsuarioLogin user) {
 		UsuarioLogin obj = service.logarUsuario(user);
-		return ResponseEntity.ok(obj); 
-				
+		return ResponseEntity.ok(obj);
+
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<UsuarioDTO>> listaUsuarios(){
+	public ResponseEntity<List<UsuarioDTO>> listaUsuarios() {
 		return ResponseEntity.ok(service.listarTodos());
 	}
-	
+
 	@GetMapping("/{idusuario}")
 	public ResponseEntity<UsuarioDTO> pegarUsuario(@PathVariable("idusuario") int idusuario) {
-		    UsuarioDTO userDTO = service.pegarUsuario(idusuario);
-			return ResponseEntity.ok().body(userDTO);
+		UsuarioDTO userDTO = service.pegarUsuario(idusuario);
+		return ResponseEntity.ok().body(userDTO);
 	}
-	
+
 	@PostMapping
-	   public ResponseEntity<UsuarioDTO> salvar(@RequestBody Usuario usuario){
-		 UsuarioDTO user = service.salvar(usuario); 
-		 return ResponseEntity.status(HttpStatus.CREATED).body(user);
-	   }
-	
+	public ResponseEntity<UsuarioDTO> salvar(@RequestBody Usuario usuario) {
+		UsuarioDTO user = service.salvar(usuario);
+		return ResponseEntity.status(HttpStatus.CREATED).body(user);
+	}
+
 	@PutMapping("/{idusuario}")
-	public ResponseEntity<UsuarioDTO> alterar(@PathVariable("idusuario") int idusuario, @RequestBody Usuario usuario){
-	      return ResponseEntity.status(HttpStatus.OK).body(service.alterar(idusuario, usuario));	
-		
-		
+	public ResponseEntity<UsuarioDTO> alterar(@PathVariable("idusuario") int idusuario, @RequestBody Usuario usuario) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.alterar(idusuario, usuario));
+
 	}
-	
+
 	@DeleteMapping("/{idusuario}")
-	public ResponseEntity<UsuarioDTO> excluir(@PathVariable("idusuario") int idusuario){
-		           service.excluir(idusuario);
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-		
-	
+	public ResponseEntity<UsuarioDTO> excluir(@PathVariable("idusuario") int idusuario) {
+		service.excluir(idusuario);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
 	}
-	
-	
+
 }
