@@ -20,6 +20,7 @@ import com.projeto.rest.service.ProdutoService;
 
 @RestController
 @RequestMapping("/produto")
+@CrossOrigin
 public class ProdutoController {
 	
 	@Autowired
@@ -47,7 +48,7 @@ public class ProdutoController {
 		
 	}
 	
-	@CrossOrigin
+	
 	@DeleteMapping("/{idproduto}")
 	public ResponseEntity<Produto> excluir(@PathVariable("idproduto") int idproduto){
 		     service.excluir(idproduto);
