@@ -51,6 +51,10 @@ public class UsuarioDTO {
 		
 	}
 
+	public UsuarioDTO() {
+	
+	}
+
 	public int getId() {
 		return id;
 	}

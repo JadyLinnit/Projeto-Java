@@ -11,6 +11,6 @@ import com.projeto.rest.entities.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 
 	Optional<Usuario> findByEmail(String email);
-
+	
 	
 }
