@@ -170,6 +170,14 @@ public class Usuario {
 	public void setPerfil(String perfil) {
 		this.perfil = perfil;
 	}
+
+
+
+	public Usuario(int id, String nome) {
+		
+		this.id = id;
+		this.nome = nome;
+	}
 	
 	
 	
