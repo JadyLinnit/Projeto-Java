@@ -98,6 +98,13 @@ public class Produto {
 		this.categoria = categoria;
 	}
 
+
+	public Produto(int id, String descricao) {
+		
+		this.id = id;
+		this.descricao = descricao;
+	}
+
 	
 	
 	 
