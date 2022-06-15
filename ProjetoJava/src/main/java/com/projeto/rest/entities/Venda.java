@@ -19,7 +19,7 @@ public class Venda {
 	@Column(name = "id_usuario")
 	private Integer idUsuario;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_carrinho", referencedColumnName = "id")
 	private List<Carrinho> carrinho;
 
