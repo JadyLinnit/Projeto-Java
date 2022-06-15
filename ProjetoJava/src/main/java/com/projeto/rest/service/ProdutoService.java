@@ -39,7 +39,7 @@ public class ProdutoService {
 		try {
 		Produto prod = repo.findById(idproduto).get();
 		prod.setDescricao(produto.getDescricao());
-		prod.setEstoque(produto.getEstoque());
+		prod.setDisponivel(produto.isDisponivel());
 		prod.setCategoria(produto.getCategoria());
 		prod.setFoto(produto.getFoto());
 		prod.setPreco(produto.getPreco());

@@ -1,13 +1,9 @@
 package com.projeto.rest.entities;
 
 import java.sql.Date;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="tb_venda")
@@ -15,16 +11,23 @@ public class Venda {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "id")
 	private int id;
 	@Column(name = "data_compra")
-	private Date data;
-	
-	
-	
-	public Venda(int id, Date data) {
+	private String data;
+
+	@Column(name = "id_usuario")
+	private Integer idUsuario;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_carrinho", referencedColumnName = "id")
+	private List<Carrinho> carrinho;
+
+	public Venda(int id, String data, Integer idUsuario, List<Carrinho> carrinho) {
 		this.id = id;
 		this.data = data;
+		this.idUsuario = idUsuario;
+		this.carrinho = carrinho;
 	}
 	
 	public Venda() {
@@ -37,13 +40,26 @@ public class Venda {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Date getData() {
+	public String getData() {
 		return data;
 	}
-	public void setData(Date data) {
+	public void setData(String data) {
 		this.data = data;
 	}
-	
-	
-	
+
+	public Integer getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public List<Carrinho> getCarrinho() {
+		return carrinho;
+	}
+
+	public void setCarrinho(List<Carrinho> carrinho) {
+		this.carrinho = carrinho;
+	}
 }
