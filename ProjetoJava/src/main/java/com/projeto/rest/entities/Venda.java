@@ -18,16 +18,20 @@ public class Venda {
 
 	@Column(name = "id_usuario")
 	private Integer idUsuario;
+	
+	@Column(name= "valor_total")
+	private double valorTotal;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_carrinho", referencedColumnName = "id")
 	private List<Carrinho> carrinho;
 
-	public Venda(int id, String data, Integer idUsuario, List<Carrinho> carrinho) {
+	public Venda(int id, String data, Integer idUsuario, double valorTotal, List<Carrinho> carrinho) {
 		this.id = id;
 		this.data = data;
 		this.idUsuario = idUsuario;
 		this.carrinho = carrinho;
+		this.valorTotal= valorTotal;
 	}
 	
 	public Venda() {
@@ -53,6 +57,14 @@ public class Venda {
 
 	public void setIdUsuario(Integer idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+	
+	public double getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
 	public List<Carrinho> getCarrinho() {
