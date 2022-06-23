@@ -11,7 +11,7 @@ public class Carrinho {
 	@Column(name = "id")
 	private int id;
 
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "id_produto", referencedColumnName = "id")
 	private Produto produto;
 

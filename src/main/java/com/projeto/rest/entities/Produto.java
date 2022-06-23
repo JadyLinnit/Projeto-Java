@@ -9,37 +9,41 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int id;
+	private Integer id;
 	@Column(name = "descricao")
 	private String descricao;
-
 	@Column(name = "disponivel")
-	private boolean isDisponivel;
-
+	private Boolean disponivel;
 	@Column(name = "preco")
-	private double preco;
+	private Double preco;
 	@Column(name = "foto")
 	private String foto;
 	@ManyToOne
 	private Categoria categoria;
 
-	public Produto(int id, String descricao, boolean isDisponivel, double preco, String foto, Categoria categoria) {
+	public Produto(Integer id, String descricao, Boolean disponivel, Double preco, String foto, Categoria categoria) {
 		this.id = id;
 		this.descricao = descricao;
-		this.isDisponivel = isDisponivel;
+		this.disponivel = disponivel;
 		this.preco = preco;
 		this.foto = foto;
 		this.categoria = categoria;
 	}
 
 	public Produto() {
+	
 	}
 
-	public int getId() {
+	public Produto(Integer id, String descricao) {
+		this.id = id;
+		this.descricao = descricao;
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -51,19 +55,19 @@ public class Produto {
 		this.descricao = descricao;
 	}
 
-	public boolean isDisponivel() {
-		return isDisponivel;
+	public Boolean getDisponivel() {
+		return disponivel;
 	}
 
-	public void setDisponivel(boolean disponivel) {
-		isDisponivel = disponivel;
+	public void setDisponivel(Boolean disponivel) {
+		this.disponivel = disponivel;
 	}
 
-	public double getPreco() {
+	public Double getPreco() {
 		return preco;
 	}
 
-	public void setPreco(double preco) {
+	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
 
@@ -82,11 +86,4 @@ public class Produto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-
-	public Produto(int id, String descricao) {
-		
-		this.id = id;
-		this.descricao = descricao;
-	}
-
 }

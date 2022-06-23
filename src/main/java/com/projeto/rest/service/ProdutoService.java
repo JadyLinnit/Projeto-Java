@@ -17,14 +17,22 @@ public class ProdutoService {
 	ProdutoRepository repo;
 	
 	public List<Produto> listarProdutos(){
-		List<Produto> produto = repo.findAll();
-		return produto;		
+		List<Produto> produtos = repo.findAll();
+		return produtos;
+	}
+
+	public List<Produto> listarProdutosDisponiveis(){
+		List<Produto> produtos = repo.getAllDisponiveis();
+		return produtos;
 	}
 	
 	public Produto salvar (Produto produto) {
 		return repo.save(produto);
 	}
 	
+	public List<Produto> darBaixaProdutos(List<Produto> produtos){
+		return repo.saveAll(produtos);
+	}
 	
 	public Produto pegarProduto(int idproduto) {
 		try {
@@ -39,7 +47,7 @@ public class ProdutoService {
 		try {
 		Produto prod = repo.findById(idproduto).get();
 		prod.setDescricao(produto.getDescricao());
-		prod.setDisponivel(produto.isDisponivel());
+		prod.setDisponivel(produto.getDisponivel());
 		prod.setCategoria(produto.getCategoria());
 		prod.setFoto(produto.getFoto());
 		prod.setPreco(produto.getPreco());
